@@ -1,0 +1,6 @@
+{
+  "name": "WattWatch",
+  "description": "A modern PWA for tracking daily electricity meter units with charts, monthly analysis, and bill estimation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["PWA", "Charts", "Local Storage"]
+}
