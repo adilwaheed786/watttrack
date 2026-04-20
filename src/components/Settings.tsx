@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
-import { Save, Info, Wallet, Globe } from 'lucide-react';
+import { Save, Info, Wallet, Globe, Download, CheckCircle2, Monitor } from 'lucide-react';
 import { Settings as SettingsType } from '../types';
+import { usePWA } from '../hooks/usePWA';
 
 interface SettingsProps {
   settings: SettingsType;
@@ -10,6 +11,7 @@ interface SettingsProps {
 export default function Settings({ settings, onUpdate }: SettingsProps) {
   const [formData, setFormData] = useState<SettingsType>({ ...settings });
   const [saved, setSaved] = useState(false);
+  const { isInstallable, isInstalled, install } = usePWA();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -80,14 +82,37 @@ export default function Settings({ settings, onUpdate }: SettingsProps) {
          <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
           <Globe size={16} /> App Info
         </h3>
-        <div className="space-y-2">
-           <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-slate-400 uppercase tracking-tighter">Version</span>
-              <span className="font-mono text-slate-500">1.0.0 (PWA)</span>
-           </div>
-           <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-slate-400 uppercase tracking-tighter">Storage</span>
-              <span className="font-mono text-slate-500">Browser (Local)</span>
+        <div className="space-y-4">
+           {isInstallable && (
+             <button 
+               onClick={install}
+               className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg"
+             >
+               <Download size={18} /> Install App
+             </button>
+           )}
+
+           {isInstalled && (
+             <div className="w-full py-4 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-400 rounded-2xl font-bold flex items-center justify-center gap-2 border border-emerald-100 dark:border-emerald-900/30">
+               <CheckCircle2 size={18} /> App Installed
+             </div>
+           )}
+
+           <div className="space-y-2 pt-2">
+              <div className="flex justify-between items-center text-xs">
+                 <span className="font-bold text-slate-400 uppercase tracking-tighter">Version</span>
+                 <span className="font-mono text-slate-500">1.0.0 (PWA)</span>
+              </div>
+              <div className="flex justify-between items-center text-xs">
+                 <span className="font-bold text-slate-400 uppercase tracking-tighter">Storage</span>
+                 <span className="font-mono text-slate-500">Browser (Local)</span>
+              </div>
+              {!isInstalled && !isInstallable && (
+                <div className="flex justify-between items-center text-xs">
+                   <span className="font-bold text-slate-400 uppercase tracking-tighter">Platform</span>
+                   <span className="font-mono text-slate-500 flex items-center gap-1"><Monitor size={10} /> Web View</span>
+                </div>
+              )}
            </div>
         </div>
       </section>

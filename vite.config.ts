@@ -14,10 +14,12 @@ export default defineConfig(({mode}) => {
         registerType: 'autoUpdate',
         includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
         manifest: {
-          name: 'WattWatch',
-          short_name: 'WattWatch',
+          name: 'VoltTrack',
+          short_name: 'VoltTrack',
           description: 'Track daily electricity meter units',
-          theme_color: '#ffffff',
+          theme_color: '#4f46e5',
+          background_color: '#f8fafc',
+          display: 'standalone',
           icons: [
             {
               src: 'pwa-192x192.png',
