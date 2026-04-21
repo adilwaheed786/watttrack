@@ -80,39 +80,53 @@ export default function Settings({ settings, onUpdate }: SettingsProps) {
 
       <section className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800">
          <h3 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-2">
-          <Globe size={16} /> App Info
+          <Globe size={16} /> App Management
         </h3>
         <div className="space-y-4">
-           {isInstallable && (
-             <button 
-               onClick={install}
-               className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg"
-             >
-               <Download size={18} /> Install App
-             </button>
+           {!isInstalled && (
+             <div className="space-y-3">
+               {isInstallable ? (
+                 <button 
+                   onClick={install}
+                   className="w-full py-4 bg-indigo-600 text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all shadow-lg"
+                 >
+                   <Download size={18} /> Install App Automatically
+                 </button>
+               ) : (
+                 <div className="p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-slate-100 dark:border-slate-700">
+                   <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-1.5">
+                     <Info size={12} /> How to Install
+                   </p>
+                   <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-relaxed">
+                     To install this app on your phone:
+                     <br />
+                     1. Tap the <span className="font-bold text-indigo-600">Menu</span> (browser dots) or <span className="font-bold text-indigo-600">Share</span> icon.
+                     <br />
+                     2. Select <span className="font-bold text-indigo-600">"Add to Home Screen"</span> or <span className="font-bold text-indigo-600">"Install App"</span>.
+                   </p>
+                 </div>
+               )}
+             </div>
            )}
 
            {isInstalled && (
              <div className="w-full py-4 bg-emerald-50 dark:bg-emerald-900/10 text-emerald-600 dark:text-emerald-400 rounded-2xl font-bold flex items-center justify-center gap-2 border border-emerald-100 dark:border-emerald-900/30">
-               <CheckCircle2 size={18} /> App Installed
+               <CheckCircle2 size={18} /> App Installed & Ready
              </div>
            )}
 
-           <div className="space-y-2 pt-2">
-              <div className="flex justify-between items-center text-xs">
-                 <span className="font-bold text-slate-400 uppercase tracking-tighter">Version</span>
-                 <span className="font-mono text-slate-500">1.0.0 (PWA)</span>
+           <div className="space-y-2 pt-2 border-t border-slate-50 dark:border-slate-800/50">
+              <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-widest">
+                 <span className="text-slate-400">Version</span>
+                 <span className="text-slate-500">1.2.0 (Stable)</span>
               </div>
-              <div className="flex justify-between items-center text-xs">
-                 <span className="font-bold text-slate-400 uppercase tracking-tighter">Storage</span>
-                 <span className="font-mono text-slate-500">Browser (Local)</span>
+              <div className="flex justify-between items-center text-[10px] uppercase font-bold tracking-widest">
+                 <span className="text-slate-400">Platform</span>
+                 <span className="text-slate-500 flex items-center gap-1">
+                   {isInstalled ? <Download size={10} /> : <Monitor size={10} />}
+                   {isInstalled ? 'Offline Ready' : 'Web Preview'}
+                 </span>
               </div>
-              {!isInstalled && !isInstallable && (
-                <div className="flex justify-between items-center text-xs">
-                   <span className="font-bold text-slate-400 uppercase tracking-tighter">Platform</span>
-                   <span className="font-mono text-slate-500 flex items-center gap-1"><Monitor size={10} /> Web View</span>
-                </div>
-              )}
            </div>
         </div>
       </section>
